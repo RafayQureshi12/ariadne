@@ -1,27 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <Button
-        android:id="@+id/button_upload"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Upload Image" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/mainbg" />
 
-    <Button
-        android:id="@+id/button_take_picture"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Take Picture" />
 
-    <TextView
-        android:id="@+id/response_text"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Response will be displayed here"
-        android:paddingTop="20dp"
-        android:textSize="16sp" />
-</LinearLayout>
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+            <Button
+                android:id="@+id/button_take_picture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                android:backgroundTint="#d0bdf4"
+                android:textColor="#7c677f"
+                android:text="Take Picture" />
+
+            <Button
+                android:id="@+id/button_upload"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#d0bdf4"
+                android:text="Upload"
+                android:layout_marginLeft="14dp"
+                android:textColor="#7c677f" />
+
+            <TextView
+                android:id="@+id/response_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Response will be displayed here"
+                android:paddingTop="20dp"
+                android:textSize="16sp" />
+
+    </LinearLayout>
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/uploadAnimationView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:background="#FFFFFF"
+        app:lottie_rawRes="@raw/aniki_hamster"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="true"/>
+
+</RelativeLayout>
