@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    android:background="#FFFFFF"> <!-- or any background color you prefer -->
+    android:orientation="vertical">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/splashAnimationView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/explore" /> <!-- replace with your animation JSON file -->
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/eye2" /> <!-- replace with your animation JSON file -->
 
 </LinearLayout>

@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp">
+    >
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieBackground"
@@ -11,53 +12,50 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         app:lottie_autoPlay="true"
+        android:alpha="0.1"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/mainbg" />
+        android:backgroundTint="@color/black"
+        app:lottie_rawRes="@raw/eye2" />
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:paddingHorizontal="20dp"
+        android:gravity="center_horizontal"
+        >
             <Button
                 android:id="@+id/button_take_picture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
-                android:backgroundTint="#d0bdf4"
-                android:textColor="#7c677f"
+                android:layout_marginBottom="30dp"
+                android:background="@drawable/button_bg"
+                android:textColor="@color/black"
                 android:text="Take Picture" />
 
             <Button
                 android:id="@+id/button_upload"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#d0bdf4"
                 android:text="Upload"
-                android:layout_marginLeft="14dp"
-                android:textColor="#7c677f" />
+                android:background="@drawable/button_bg"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/response_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Response will be displayed here"
+                android:text=""
                 android:paddingTop="20dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:textAlignment="center"
+                />
 
     </LinearLayout>
 
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/uploadAnimationView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        android:background="#FFFFFF"
-        app:lottie_rawRes="@raw/aniki_hamster"
-        app:lottie_autoPlay="false"
-        app:lottie_loop="true"/>
+
 
 </RelativeLayout>

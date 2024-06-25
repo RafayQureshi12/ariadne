@@ -1,6 +1,6 @@
 package com.example.ariadne
-import okhttp3.MediaType.Companion.toMediaType
 
+import okhttp3.MediaType.Companion.toMediaType
 import android.Manifest
 import android.content.Context
 import android.content.Intent
@@ -23,6 +23,7 @@ import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
 import java.util.Locale
 import javax.net.ssl.*
+import ai.picovoice.porcupine.*;
 
 class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
@@ -44,6 +45,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         }
     }
 
+    private fun speakResponse(message: String) {
+        textToSpeech.speak(message, TextToSpeech.QUEUE_FLUSH, null, "")
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -55,7 +60,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         val buttonTakePicture = findViewById<Button>(R.id.button_take_picture)
         val buttonUploadImage = findViewById<Button>(R.id.button_upload)
         responseText = findViewById(R.id.response_text)
-
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO),100)
         buttonTakePicture.setOnClickListener {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -71,8 +76,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     }
 
     private fun openCamera() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(takePictureIntent, 101)
+//        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+//        startActivityForResult(takePictureIntent, 101)
+        val intent = Intent(this, CameraActivity::class.java)
+        startActivity(intent)
     }
 
     private fun openGallery() {
@@ -115,7 +122,7 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
 
         Thread {
             try {
-                val responseTextString = post("https://192.168.100.4:5000/api/", json.toString())
+                val responseTextString =  post("https://192.168.51.249:5000/api/", json.toString())
                 runOnUiThread {
                     responseText.text = responseTextString
                     speakResponse(responseTextString)
@@ -123,14 +130,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             } catch (e: IOException) {
                 runOnUiThread {
                     responseText.text = "Failed to upload image: ${e.message}"
-                    speakResponse("Failed to upload image: ${e.message}")
+                    speakResponse("Failed to upload image")
                 }
             }
         }.start()
-    }
-
-    private fun speakResponse(message: String) {
-        textToSpeech.speak(message, TextToSpeech.QUEUE_FLUSH, null, "")
     }
 
     override fun onInit(status: Int) {
@@ -140,6 +143,9 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 // Language data is missing or the language is not supported
                 // Handle the error
+            } else {
+                // Only speak when Text-to-Speech is successfully initialized
+//                speakResponse("Hello! How may I help you?")
             }
         } else {
             // Text-to-Speech initialization failed
